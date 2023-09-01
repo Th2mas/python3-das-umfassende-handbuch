@@ -82,7 +82,6 @@ class SequentialDatatypeTests(unittest.TestCase):
         self.assertTrue(batman is superman)
         self.assertTrue(superman is batman)
 
-
     def test_subsequence_as_copy(self):
         batman = ["Batman"]
         robin = batman
@@ -118,9 +117,11 @@ class SequentialDatatypeTests(unittest.TestCase):
         digits = '0123456789'
         last_five_reversed = digits[9:4:-1]
         odd_digits_reversed = digits[::-2]
+        not_first_five_reversed = digits[4:0:-1]
 
         self.assertEqual("98765", last_five_reversed)
         self.assertEqual("97531", odd_digits_reversed)
+        self.assertEqual("4321", not_first_five_reversed)
 
     def test_slicing_as_reverse_including_first_element(self):
         digits = '0123456789'
@@ -137,7 +138,7 @@ class SequentialDatatypeTests(unittest.TestCase):
     def test_substring_with_incorrect_indices_no_exception(self):
         digits = '0123456789'
         d1 = digits[5:9:-1]
-        d2 = digits[-4:9]   # rather hard to understand
+        d2 = digits[-4:9]  # rather hard to understand
         d3 = digits[3:100]
         d4 = digits[5:3]
 
@@ -145,3 +146,65 @@ class SequentialDatatypeTests(unittest.TestCase):
         self.assertEqual("678", d2)
         self.assertEqual("3456789", d3)
         self.assertEqual("", d4)
+
+    def test_length_of_string(self):
+        s = 'Hello World'
+        l = len(s)
+
+        self.assertEqual(11, l)
+
+    def test_length_of_array(self):
+        a = ['a', 'b', 'c', 1, 2]
+        l = len(a)
+
+        self.assertEqual(5, l)
+
+    def test_min_max_of_number_array(self):
+        l = [5, 1, 10, -9.5, 12, -5]
+
+        self.assertEqual(-9.5, min(l))
+        self.assertEqual(12, max(l))
+
+    def test_min_max_of_string(self):
+        s = "Hello World"
+        s2 = "Ww"
+
+        # min/max on strings works on the char code
+        self.assertEqual(" ", min(s))
+        self.assertEqual("r", max(s))
+
+        self.assertEqual("W", min(s2))
+        self.assertEqual("w", max(s2))
+
+    def test_min_max_of_mixed_array_raises_type_error(self):
+        l = [1, 2, "world"]
+
+        with self.assertRaises(TypeError):
+            min(l)
+
+        with self.assertRaises(TypeError):
+            max(l)
+
+    def test_index_on_array(self):
+        digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        self.assertEqual(3, digits.index(3))
+
+    def test_index_on_string(self):
+        s = "Hello world"
+
+        self.assertEqual(2, s.index("l"))
+
+    def test_index_with_subsection(self):
+        a = [0, 11, 222, 3333, 44444, 3333, 222, 11, 0]
+
+        self.assertEqual(1, a.index(11))
+        self.assertEqual(7, a.index(11, 2))  # the second argument of 'index' is the starting position of the search
+        self.assertEqual(8, a.index(0, -1))  # an argument < 0 starts at the end of the array and searches backwards
+        self.assertEqual(0, a.index(0, -0))  # (-)0 is the same as the function without a second argument
+
+    def test_index_raises_value_error_if_element_cannot_be_found(self):
+        pi = [3, 1, 4, 1, 5, 9]
+
+        with self.assertRaises(ValueError):
+            pi.index(2)
