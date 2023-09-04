@@ -208,3 +208,14 @@ class SequentialDatatypeTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             pi.index(2)
+
+    def test_count_occurrences_in_number_array(self):
+        pi = [3, 1, 4, 1, 5, 9]
+
+        self.assertEqual(2, pi.count(1))
+        self.assertEqual(1, pi.count(3))
+
+    def test_count_occurrences_in_string(self):
+        s = "Hello World"
+
+        self.assertEqual(3, s.count("l"))
