@@ -2,6 +2,16 @@ import unittest
 
 
 class SequentialDatatypeTests(unittest.TestCase):
+
+    def test_referencing_of_string(self):
+        a = 'Hello'
+        b = a
+        b += ' World'
+
+        # a string is immutable, therefore b got a copy of a and not a itself
+        self.assertEqual(a, 'Hello')
+        self.assertEqual(b, 'Hello World')
+
     def test_in_operator(self):
         elements = ["one", 2, 3.0, "four", 5, "six"]
         self.assertTrue("one" in elements)
