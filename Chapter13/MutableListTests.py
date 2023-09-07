@@ -198,7 +198,7 @@ class MutableListTests(unittest.TestCase):
 
     def test_referencing_of_sliced_list(self):
         hello = ['H', 'e', 'l', 'l', 'o']
-        world = hello[:]    # creates a copy
+        world = hello[:]  # creates a copy
         world += ['W', 'o', 'r', 'l', 'd']
 
         self.assertEqual(hello, ['H', 'e', 'l', 'l', 'o'])
@@ -207,7 +207,14 @@ class MutableListTests(unittest.TestCase):
 
     def test_list_stores_only_references(self):
         a = [[]]
-        a = 4 * a   # does not copy the empty list, but simply created additional references
+        a = 4 * a  # does not copy the empty list, but simply created additional references
         a[0].append(10)
 
         self.assertEqual(a, [[10], [10], [10], [10]])
+
+    def test_list_stores_reference_to_itself(self):
+        a = []
+        a.append(a)  # this would be a recursive reference to itself
+        s = str(a)
+
+        self.assertEqual(s, "[[...]]")
