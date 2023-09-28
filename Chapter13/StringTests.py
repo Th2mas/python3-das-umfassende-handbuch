@@ -120,9 +120,114 @@ class StringTests(unittest.TestCase):
         self.assertEqual(sub1, 4)
         self.assertEqual(sub2, 7)
 
+    def test_find_does_not_throw_error_when_string_cannot_be_found(self):
+        s = 'Batman'
+
+        result = s.find('Superman')
+
+        self.assertEqual(result, -1)
+
     def test_rfind_returns_index_of_last_substring(self):
         s = 'Why do we fall? So we can learn to pick ourselves up'
 
         result = s.rfind("we")
 
         self.assertEqual(result, 19)
+
+    def test_index_returns_index_of_first_substring(self):
+        s = 'Why do we fall? So we can learn to pick ourselves up'
+
+        sub1 = s.index("d")
+        sub2 = s.index("we")
+
+        self.assertEqual(sub1, 4)
+        self.assertEqual(sub2, 7)
+
+    def test_index_throws_value_error_if_substring_is_not_found(self):
+        s = 'Batman'
+
+        with self.assertRaises(ValueError):
+            s.index('Superman')
+
+    def test_rindex_returns_index_of_last_substring(self):
+        s = 'Why do we fall? So we can learn to pick ourselves up'
+
+        result = s.rindex("we")
+
+        self.assertEqual(result, 19)
+
+    def test_count_returns_number_of_occurrences_of_substring(self):
+        s = "Hello Hello hello Hello"
+
+        result = s.count("Hello")
+
+        self.assertEqual(result, 3)
+
+    def test_replace_returns_string_with_replaced_value(self):
+        s = "Python is really bad"
+
+        result = s.replace("bad", "good")
+
+        self.assertEqual(result, "Python is really good")
+
+    def test_replace_with_count_returns_string_with_only_few_replacements(self):
+        s = 'Why wedo wewe fall?'
+
+        result = s.replace("we", "", 2)
+
+        self.assertEqual(result, "Why do we fall?")
+
+    def test_lower_returns_string_with_only_lowercase_letters(self):
+        s = "BAtmAn"
+
+        result = s.lower()
+
+        self.assertEqual(result, "batman")
+
+    def test_upper_returns_string_with_only_uppercase_letters(self):
+        s = "BAtmAn"
+
+        result = s.upper()
+
+        self.assertEqual(result, "BATMAN")
+
+    def test_swapcase_returns_string_with_swapped_upper_and_lowecase_letters(self):
+        s = "BAtmAn"
+
+        result = s.swapcase()
+
+        self.assertEqual(result, "baTMaN")
+
+    def test_capitalize_returns_string_with_first_character_capitalized(self):
+        s = "why do we fall?"
+
+        result = s.capitalize()
+
+        self.assertEqual(result, "Why do we fall?")
+
+    def test_title_returns_string_with_each_word_being_capitalized(self):
+        s = "why do we fall?"
+
+        result = s.title()
+
+        self.assertEqual(result, "Why Do We Fall?")
+
+    def test_expandtabs_replaces_tabs_with_spaces(self):
+        s = "Why\n\tdo\n\t\twe fall?"
+        expected = """Why
+        do
+                we fall?"""
+
+        result = s.expandtabs()
+
+        self.assertEqual(result, expected)
+
+    def test_expandtabs_with_tabsize_replaces_tabs_with_tabsize_spaces(self):
+        s = "Why\n\tdo\n\t\twe fall?"
+        expected = """Why
+    do
+        we fall?"""
+
+        result = s.expandtabs(4)
+
+        self.assertEqual(result, expected)
