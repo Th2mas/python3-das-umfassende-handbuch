@@ -231,3 +231,111 @@ class StringTests(unittest.TestCase):
         result = s.expandtabs(4)
 
         self.assertEqual(result, expected)
+
+    def test_strip_removes_whitespace_characters_on_both_sides_of_string(self):
+        s = "    \n\t   Why do we fall?   \t\t\r\n  "
+
+        result = s.strip()
+
+        self.assertEqual(result, "Why do we fall?")
+
+    def test_strip_with_chars_removes_characters_defined_in_the_string(self):
+        s = "Why do we fall?"
+
+        result = s.strip("Whl?")
+
+        self.assertEqual(result, "y do we fa")
+
+    def test_lstrip_removes_whitespace_characters_on_left_side_of_string(self):
+        s = "    \n\t   Why do we fall?   \t\t\r\n  "
+
+        result = s.lstrip()
+
+        self.assertEqual(result, "Why do we fall?   \t\t\r\n  ")
+
+    def test_rstrip_removes_whitespace_characters_on_left_side_of_string(self):
+        s = "    \n\t   Why do we fall?   \t\t\r\n  "
+
+        result = s.rstrip()
+
+        self.assertEqual(result, "    \n\t   Why do we fall?")
+
+    def test_center_fills_string_with_whitespaces_and_centers_string(self):
+        s = "Why do we fall?"
+        expected = "     Why do we fall?     "
+
+        result = s.center(25)
+
+        self.assertEqual(result, expected)
+
+    def test_center_returns_string_if_width_is_too_short(self):
+        s = "Why do we fall?"
+
+        result = s.center(10)
+
+        self.assertEqual(result, s)
+
+    def test_ljust_fills_string_on_right_side_with_whitespaces(self):
+        s = "Why do we fall?"
+        expected = "Why do we fall?          "
+
+        result = s.ljust(25)
+
+        self.assertEqual(result, expected)
+
+    def test_rjust_with_char_fills_string_on_right_side_with_given_char(self):
+        s = "Why do we fall?"
+        expected = "Why do we fall?----------"
+
+        result = s.ljust(25, '-')
+
+        self.assertEqual(result, expected)
+
+    def test_zfill_fills_string_on_left_side_with_zeroes(self):
+        amount = "13.57"
+
+        result = amount.zfill(10)
+
+        self.assertEqual(result, "0000013.57")
+
+    def test_isalnum_returns_true_if_string_contains_only_characters_and_digits(self):
+        s = "abcd1234"
+
+        result = s.isalnum()
+
+        self.assertTrue(result)
+
+    def test_isalnum_returns_false_if_string_contains_not_only_characters_and_digits(self):
+        s = "abcd1234!"
+
+        result = s.isalnum()
+
+        self.assertFalse(result)
+
+    def test_isalpha_returns_true_if_string_contains_only_characters(self):
+        s = "abcdAbcd"
+
+        result = s.isalpha()
+
+        self.assertTrue(result)
+
+    def test_isalpha_returns_false_if_string_contains_not_only_characters(self):
+        s = "abcd1234"
+
+        result = s.isalpha()
+
+        self.assertFalse(result)
+
+    def test_isdigit_returns_true_if_string_contains_only_digits(self):
+        s = "1234"
+
+        result = s.isdigit()
+
+        self.assertTrue(result)
+
+    def test_isdigit_returns_false_if_string_contains_not_only_digits(self):
+        s = "12.34"
+
+        result = s.isdigit()
+
+        self.assertFalse(result)
