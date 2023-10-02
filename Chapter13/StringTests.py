@@ -339,3 +339,45 @@ class StringTests(unittest.TestCase):
         result = s.isdigit()
 
         self.assertFalse(result)
+
+    def test_startswith_returns_bool_depending_on_whether_string_starts_with_argument(self):
+        s = "Hello World"
+
+        startsWithCapitalH = s.startswith("Hello")
+        startsWithLowercaseH = s.startswith("hello")
+
+        self.assertTrue(startsWithCapitalH)
+        self.assertFalse(startsWithLowercaseH)
+
+    def test_startswith_with_start_shifts_the_starting_position(self):
+        s = "Hello World"
+
+        result = s.startswith("Wor", 6)
+
+        self.assertTrue(result)
+
+    def test_endswith_returns_bool_depending_on_whether_string_ends_with_argument(self):
+        s = "Hello World"
+
+        result = s.endswith("World")
+
+        self.assertTrue(result)
+
+    def test_join_joins_list_with_separator(self):
+        separator1 = ","
+        separator2 = ""
+        names = ["Bruce", "Clark", "Tony"]
+
+        result1 = separator1.join(names)
+        result2 = separator2.join(names)
+
+        self.assertEqual(result1, "Bruce,Clark,Tony")
+        self.assertEqual(result2, "BruceClarkTony")
+
+    def test_join_joins_every_character_of_string(self):
+        s = "Hello"
+        separator = ":"
+
+        result = separator.join(s)
+
+        self.assertEqual(result, "H:e:l:l:o")
