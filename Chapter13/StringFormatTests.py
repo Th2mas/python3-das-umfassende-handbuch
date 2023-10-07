@@ -85,3 +85,69 @@ class StringFormatTests(unittest.TestCase):
         result = template.format(firstname="Barry", lastname="Allen")
 
         self.assertEqual(result, "Barry   Allen")
+
+    def test_format_with_minimum_width_specifier_with_alignment(self):
+        template = "Sum: {sum:>5} Euro"
+
+        result = template.format(sum=443)
+
+        self.assertEqual(result, "Sum:   443 Euro")
+
+    def test_format_with_minimum_width_specifier_with_alignment_and_sign(self):
+        template = "Temperature: {temperature:=7}°C"
+
+        result1 = template.format(temperature=12.5)
+        result2 = template.format(temperature=-12.5)
+
+        self.assertEqual(result1, "Temperature:    12.5°C")
+        self.assertEqual(result2, "Temperature: -  12.5°C")
+
+    def test_format_with_minimum_width_specifier_align_center_and_fill_character(self):
+        template = "{text:-^25}"
+
+        result = template.format(text="Hello World")
+
+        self.assertEqual(result, "-------Hello World-------")
+
+    def test_format_show_sign_with_plus_sign(self):
+        template = "Sum: {:+}"
+
+        result1 = template.format(123)
+        result2 = template.format(-123)
+
+        self.assertEqual(result1, "Sum: +123")
+        self.assertEqual(result2, "Sum: -123")
+
+    def test_format_show_only_negative_sign(self):
+        template = "Sum: {:-}"
+
+        result1 = template.format(123)
+        result2 = template.format(-123)
+
+        self.assertEqual(result1, "Sum: 123")
+        self.assertEqual(result2, "Sum: -123")
+
+    def test_format_show_only_negative_sign_but_same_width(self):
+        template = "Sum: {: }"
+
+        result1 = template.format(123)
+        result2 = template.format(-123)
+
+        self.assertEqual(result1, "Sum:  123")
+        self.assertEqual(result2, "Sum: -123")
+
+    def test_format_combine_align_and_sign(self):
+        template = "Costs: {:0=+10}"
+
+        result1 = template.format(123)
+        result2 = template.format(-123)
+
+        self.assertEqual(result1, "Costs: +000000123")
+        self.assertEqual(result2, "Costs: -000000123")
+
+    def test_format_with_type(self):
+        template = "Number in bits: {:b}"
+
+        result = template.format(8)
+
+        self.assertEqual(result, "Number in bits: 1000")
