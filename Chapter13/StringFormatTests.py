@@ -151,3 +151,32 @@ class StringFormatTests(unittest.TestCase):
         result = template.format(8)
 
         self.assertEqual(result, "Number in bits: 1000")
+
+    def test_format_with_type_additional_prefix(self):
+        template = "{num:#b} and {num:b}"
+
+        result = template.format(num=10)
+
+        self.assertEqual(result, "0b1010 and 1010")
+
+    def test_format_floating_point_numbers(self):
+        template = "Num: {:e}"
+
+        result = template.format(123.456)
+
+        self.assertEqual(result, "Num: 1.234560e+02")
+
+    def test_ord_returns_value_corresponding_to_character(self):
+        result = ord("j")
+
+        self.assertEqual(result, 106)
+
+    def test_chr_returns_character_corresponding_to_value(self):
+        result = chr(106)
+
+        self.assertEqual(result, "j")
+
+    def test_string_with_unicode(self):
+        s = "\u20ac"
+
+        self.assertEqual(s, "€")
